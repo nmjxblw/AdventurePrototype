@@ -101,10 +101,103 @@ class Intro extends Phaser.Scene {
         this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
-            this.time.delayedCall(1000, () => this.scene.start('demo1'));
+            this.time.delayedCall(1000, () => this.scene.start('logo'));
         });
     }
 }
+
+class Logo extends Phaser.Scene{
+    constructor(){
+        super("logo");
+    }
+
+    preload() {
+        this.load.path = './assets/';
+        this.load.image("gamemaker", "gamemaker.png");
+        this.load.audio('meow', 'funny-meow-110120.mp3');
+    }
+
+    create()
+    {
+        const centerX = this.game.config.width / 2;
+                const centerY = this.game.config.height / 2;
+                var rotateAngle = 0;
+
+                this.cameras.main.fadeIn(1000, 255, 255, 255);
+
+                this.lights.enable();
+                this.lights.setAmbientColor(0x808080);
+
+                var spotlight = this.lights.addLight(pointer => pointer.x, pointer => pointer.x, 35).setIntensity(6);
+
+                this.input.on('pointermove', pointer => {
+
+                    spotlight.x = pointer.x;
+                    spotlight.y = pointer.y;
+
+                });
+
+                let timer = this.time.addEvent({
+                    delay: 80,
+                    callback: createCircle,
+                    callbackScope: this,
+                    loop: true
+                });
+
+                function createCircle() {
+                    let color = Phaser.Display.Color.RandomRGB(50, 255);
+
+                    rotateAngle += 0.23;
+
+                    let circle = this.add.circle(centerX + 150 * Math.cos(rotateAngle), centerY + 150 * Math.sin(rotateAngle), 13, color.color);
+
+                    circle.setPipeline('Light2D');
+
+                    this.tweens.add({
+                        targets: circle,
+                        alpha: 0,
+                        scale: 2.2,
+                        duration: 2500,
+                        onComplete: function () {
+                            circle.destroy();
+                        }
+                    });
+                }
+
+                var logoImage = this.add.image(
+                    centerX,
+                    centerY,
+                    'gamemaker'
+                )
+                logoImage.setScale(0.1);
+                logoImage.alpha = 0;
+                logoImage.setPipeline('Light2D');
+
+                this.tweens.add({
+                    targets: logoImage,
+                    alpha: 1,
+                    scaleX: 0.4,
+                    scaleY: 0.4,
+                    angle: -10,
+                    duration: 1000,
+                    ease: "liner"
+                });
+
+                let logoBgm = this.sound.add('meow', { loop: false });
+
+                logoBgm.play();
+
+                this.input.on('pointerdown', () => {
+                    this.time.delayedCall(1000, () => {
+                        this.cameras.main.fadeOut(1000, 255, 255, 255);
+                        this.time.delayedCall(2000, () => {
+                            this.scene.start('demo1');
+                        });
+                    });
+                });
+    }
+}
+
 
 class Outro extends Phaser.Scene {
     constructor() {
@@ -125,7 +218,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Intro, Demo1, Demo2, Outro],
+    scene: [Intro,Logo, Demo1, Demo2, Outro],
     title: "Adventure Game",
 });
 
