@@ -191,13 +191,83 @@ class Logo extends Phaser.Scene{
                     this.time.delayedCall(1000, () => {
                         this.cameras.main.fadeOut(1000, 255, 255, 255);
                         this.time.delayedCall(2000, () => {
-                            this.scene.start('demo1');
+                            this.scene.start('menu');
                         });
                     });
                 });
     }
 }
 
+class Menu extends AdventureScene{
+
+    constructor(){
+        super("menu","Menu");
+    }
+
+    onEnter(){
+        let starttext = this.add.text(this.w * 0.3, this.w * 0.4, "Start")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            starttext.setColor("#ff0000");
+            this.showMessage("Click to strat your advanture.");
+        })
+        .on('pointerdown', () => {
+            this.gotoScene('entrance');
+        })
+        .on('pointerout',()=>{
+            starttext.setColor('#ffffff');
+        });
+    
+
+        let credittext = this.add.text(this.w * 0.3, this.w * 0.425, "Credit")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            credittext.setColor("#ff0000");
+            this.showMessage("Click to go to credit page.");
+        })
+        .on('pointerdown', () => {
+            this.gotoScene('credit');
+        })
+        .on('pointerout',()=>{
+            credittext.setColor('#ffffff');
+        });
+
+        let quittext = this.add.text(this.w * 0.3, this.w * 0.45, "Quit Game")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            quittext.setColor("#ff0000");
+            this.showMessage("Click to quit game.");
+        })
+        .on('pointerdown', () => {
+            window.close();
+        })
+        .on('pointerout',()=>{
+            quittext.setColor('#ffffff');
+        });
+    }
+}
+
+class Entrance extends AdventureScene {
+
+    constructor(){
+        super("entrance","first scene");
+    }
+
+    onEnter(){
+        this.add.text(this.w * 0.3, this.w * 0.4, "just go back")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("You've got no other choice, really.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('demo1');
+            });
+    }
+}
 
 class Outro extends Phaser.Scene {
     constructor() {
@@ -210,6 +280,16 @@ class Outro extends Phaser.Scene {
     }
 }
 
+class Credit extends AdventureScene{
+    constructor(){
+        super("credit","credit");
+    }
+
+    onEnter(){
+        this.creditText = this.add.text(this.w * 0.3, this.h * 0.5,"Credit")
+        .setFontSize(this.s *2);
+    }
+}
 
 const game = new Phaser.Game({
     scale: {
@@ -218,7 +298,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Intro,Logo, Demo1, Demo2, Outro],
+    scene: [Intro,Logo,Menu,Entrance,Credit, Demo1, Demo2, Outro],
     title: "Adventure Game",
 });
 
