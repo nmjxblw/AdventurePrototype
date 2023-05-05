@@ -586,8 +586,18 @@ class Credit extends AdventureScene {
     }
 
     onEnter() {
-        this.creditText = this.add.text(this.h / 2, this.h / 2, "Credit")
-            .setFontSize(this.s * 2);
+        this.creditText = this.add.text(this.h * 0.1, this.h * 0.1, 
+`Credit
+    Art: 
+        All emoji are copied from: https://emojipedia.org/ 
+        All images are made by me via Aseprite.
+    Sound Effect:
+        funny-meow-110120.mp3 
+            -upload by u 8zlmcos31y 
+            -from:https://pixabay.com/zh/sound-effects/funny-meow-110120/
+`)
+            .setFontSize(this.s * 2)
+            .setWordWrapWidth(this.s * 100);
     }
 }
 
