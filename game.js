@@ -427,12 +427,13 @@ class TreasureRoom extends AdventureScene {
             .on("pointerdown", () => {
                 if (this.hasItem("chest key")) {
                     this.showMessage("You opened the treasure chest.");
+                    this.loseItem("chest key");
                     this.gainItem("treasure");
                     this.time.delayedCall(2000, () => {
                         this.gotoScene("Ending");
                     });
                 }
-                else if (cilckCounter >= 3) {
+                else if (cilckCounter >= 3 && !this.hasItem("sword")) {
                     this.showMessage("A rat?");
                     rat.setAlpha(1);
                 }
@@ -581,7 +582,7 @@ class Outro extends Phaser.Scene {
 
 class Credit extends AdventureScene {
     constructor() {
-        super("Credit", "credit");
+        super("Credit", "Credit");
     }
 
     onEnter() {
