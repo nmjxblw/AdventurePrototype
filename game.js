@@ -307,7 +307,7 @@ class BossRoom extends AdventureScene {
     }
 
     onEnter() {
-        const monster = this.add.text(this.h / 2, this.h / 2, "👹 Ogre")
+        let monster = this.add.text(this.h / 2, this.h / 2, "👹 Ogre")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on("pointerover", () => {
@@ -362,6 +362,11 @@ class BossRoom extends AdventureScene {
                     });
                 }
             });
+
+        if(this.hasItem("chest key")){
+            monster.destroy();
+            this.showMessage("You've defeated the monster, there's nothing left here...")
+        }
 
         let goToTreasureRoom = this.add.text(
             this.h / 2,
@@ -598,6 +603,10 @@ class Credit extends AdventureScene {
 `)
             .setFontSize(this.s * 2)
             .setWordWrapWidth(this.s * 100);
+
+        this.input.on("pointerup",()=>{
+            this.gotoScene('Menu');
+        });
     }
 }
 
