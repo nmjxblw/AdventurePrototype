@@ -311,7 +311,12 @@ class BossRoom extends AdventureScene {
             .setFontSize(this.s * 2)
             .setInteractive()
             .on("pointerover", () => {
-                this.showMessage("A monster, but it didn't see you!(Click to attack.)")
+                if (this.hasItem("sword")) {
+                    this.showMessage("A monster, but it didn't see you! Now you can defeat it easily!(Click to attack.)")
+                }
+                else {
+                    this.showMessage("A monster, but it didn't see you! Don't do stupid things! It's better to leave here.")
+                }
             })
             .on("pointerdown", () => {
                 if (this.hasItem("sword")) {
@@ -380,11 +385,6 @@ class TreasureRoom extends AdventureScene {
         super("TreasureRoom", "Treasure Room")
     }
 
-    preload() {
-        this.load.path = './assets/';
-        this.load.image("chest", "chest-pixel.gif");
-    }
-
     onEnter() {
         var cilckCounter = 0;
 
@@ -433,13 +433,18 @@ class TreasureRoom extends AdventureScene {
                         this.gotoScene("Ending");
                     });
                 }
-                else if (cilckCounter >= 3 && !this.hasItem("sword")) {
-                    this.showMessage("A rat?");
-                    rat.setAlpha(1);
+                else if (cilckCounter >= 3) {
+                    if (!this.hasItem("sword")) {
+                        this.showMessage("A rat?");
+                        rat.setAlpha(1);
+                    }
+                    else {
+                        this.showMessage("Nothing happened...");
+                    }
                 }
                 else {
-                    this.showMessage("You cannot open the chest without the key!");
-                    cilckCounter += 1;
+                    if (cilckCounter < 3 && rat.alpha < 1) { cilckCounter += 1; }
+                    this.showMessage(`No key! But you heard something in the chest!(Click:${cilckCounter}/3)`);
                 }
             });
 
@@ -464,11 +469,6 @@ class SecretRoom extends AdventureScene {
 
     constructor() {
         super("SecretRoom", "Secret Room")
-    }
-
-    preload() {
-        this.load.path = './assets/';
-        this.load.image("sword-image", "sword-pixel.gif");
     }
 
     onEnter() {
@@ -586,8 +586,8 @@ class Credit extends AdventureScene {
     }
 
     onEnter() {
-        this.creditText = this.add.text(this.h * 0.1, this.h * 0.1, 
-`Credit
+        this.creditText = this.add.text(this.h * 0.1, this.h * 0.1,
+            `Credit
     Art: 
         All emoji are copied from: https://emojipedia.org/ 
         All images are made by me via Aseprite.
@@ -602,6 +602,7 @@ class Credit extends AdventureScene {
 }
 
 const game = new Phaser.Game({
+    type: Phaser.AUTO,
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,

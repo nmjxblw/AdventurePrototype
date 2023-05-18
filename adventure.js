@@ -9,6 +9,14 @@ class AdventureScene extends Phaser.Scene {
         this.name = name;
     }
 
+    preload() {
+        this.load.path = './assets/';
+        this.load.image("chest", "chest-pixel.gif");
+        this.load.image("sword-image", "sword-pixel.gif");
+
+        this.extraPrelad();
+    }
+
     create() {
         this.transitionDuration = 1000;
 
@@ -20,6 +28,7 @@ class AdventureScene extends Phaser.Scene {
         this.cameras.main.fadeIn(this.transitionDuration, 0, 0, 0);
 
         this.add.rectangle(this.w * 0.75, 0, this.w * 0.25, this.h).setOrigin(0, 0).setFillStyle(0);
+        
         this.add.text(this.w * 0.75 + this.s, this.s)
             .setText(this.name)
             .setStyle({ fontSize: `${3 * this.s}px` })
@@ -147,6 +156,10 @@ class AdventureScene extends Phaser.Scene {
 
     onEnter() {
         console.warn('This AdventureScene did not implement onEnter():', this.constructor.name);
+    }
+
+    extraPrelad(){
+        console.warn('This AdventureScene did not implement extraPreload():', this.constructor.name);
     }
 }
 //ss
