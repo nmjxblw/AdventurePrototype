@@ -19,12 +19,12 @@ Experience requirements:
 Asset sources:
 - (For each image/audio/video asset used, describe how it was created. What tool did you use to create it? Was it based on another work? If so, how did you change it, and where can we learn more about the original work for comparison? Use [Markdown link syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links).)
 - **Art**: 
-- **All emoji** are copied from: https://emojipedia.org/
-- **All images** are made by me via **Aseprite**.
+    - **All emoji** are copied from: https://emojipedia.org/
+    - **All images** are made by me via **Aseprite**.
 - **Sound Effect**:
-- funny-meow-110120.mp3 
-- upload by **u 8zlmcos31y** 
-- from:https://pixabay.com/zh/sound-effects/funny-meow-110120/
+    - funny-meow-110120.mp3 
+        - upload by **u 8zlmcos31y** 
+        - from:https://pixabay.com/zh/sound-effects/funny-meow-110120/
 
 Code sources:
 - `adventure.js` and `index.html` were created for this project [Adam Smith](https://github.com/rndmcnlly) and edited by me.
