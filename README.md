@@ -5,9 +5,9 @@ Code requirements:
 - **2+ scenes *not* based on `AdventureScene`**: unsatisfied (name the classes).
 - **2+ methods or other enhancement added to the adventure game engine to simplify my scenes**:
     - Enhancement 1: unsatisfied 
-        - I modified the showMessage(), now the messages are now displayed for longer.
+    - I modified the showMessage(), now the messages are now displayed for longer.
     - Enhancement 2: unsatisfied 
-        - Modified the preload() function, now each scene will automatically load the preload() function. And add extra assets in extraPreload().
+    - Modified the preload() function, now each scene will automatically load the preload() function. And add extra assets in extraPreload().
 
 Experience requirements:
 - **4+ locations in the game world**: unsatisfied (name at least 4 of the classes).
